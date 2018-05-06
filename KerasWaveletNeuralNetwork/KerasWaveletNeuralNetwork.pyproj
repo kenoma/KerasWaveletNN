@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>eea0fa28-3a34-4b02-928f-078b5e7c65ce</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>wnn_tests.py</StartupFile>
+    <StartupFile>case2_tensor.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -24,6 +24,7 @@
     <Compile Include="case1_logistic_mapping.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="case3_tensor_predict.py" />
     <Compile Include="case2_tensor.py">
       <SubType>Code</SubType>
     </Compile>
