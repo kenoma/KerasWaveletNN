@@ -20,41 +20,41 @@ x = x / max(x)
 y = Marking_line1
 X = []
 Y = []
-slice = 1
+slice = 100
 for i in range(slice, len(x)):
-    X.append([a for a in x[(i - slice) : i]])
-    tmpy = np.zeros(3)
-    tmpy[int(round(y[i]))] = 1
-    Y.append(tmpy)
+    if((y[i] != 0) or (i % 100 == 1)):
+        X.append([a for a in x[(i - slice) : i]])
+        tmpy = np.zeros(3)
+        tmpy[int(round(y[i]))] = 1
+        Y.append(tmpy)
 
 print("Total samples:",len(X))
 
 #x_train, x_test, y_train, y_test = train_test_split(X, Y, test_size=0.1)
-x_train = X[1:len(X) - 10000]
-y_train = Y[1:len(X) - 10000]
-x_test = X[len(X) - 10000:len(X)]
-y_test = Y[len(X) - 10000:len(X)]
+x_train = X[1:len(X) - 100]
+y_train = Y[1:len(X) - 100]
+x_test = X[len(X) - 100:len(X)]
+y_test = Y[len(X) - 100:len(X)]
 
-wavelons = 1000
+wavelons = 100
 
-f_layer = WNN(wavelons, 3,
+f_layer = WNN(wavelons, 20,
                      input_dim = slice)
 
 model = Sequential()
 model.add(f_layer)
-model.add(Dense(15, activation='softmax'))
 model.add(Dense(3, activation='softmax'))
 
 
-model.compile(loss='mean_squared_error',
+model.compile(loss='categorical_crossentropy',
               optimizer='adagrad',
-              metrics=['categorical_crossentropy'])
+              metrics=['categorical_accuracy'])
 
 model.fit(np.array(x_train), 
           np.array(y_train),
-          epochs = 1000,
+          epochs = 100,
           verbose = 1,
-          batch_size = 1000)
+          batch_size = 100)
 
 score = model.evaluate(np.array(x_test), np.array(y_test), verbose=True) 
 print(score)
@@ -77,6 +77,6 @@ plt.ylabel('n')
 plt.xlabel('y')
 
 plt.plot([a[-1] for a in x_test], label='test', c=(0,0,0))
-plt.scatter(px, py, c=(1,0,0), alpha=0.5, s=1)
+plt.scatter(px, py, c=(1,0,0), alpha=0.5, s=10)
 plt.show()
 plt.pause(120)
